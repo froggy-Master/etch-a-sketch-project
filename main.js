@@ -22,8 +22,25 @@ function drawGrid(e) {
     }
 }
 
+
+// Helper function to reduce make any rgb(x,y,z) color a darker so that
+// after ten function calls, the color will be dark black
+function darken(rgbColor) {
+    const numberValuesArray = rgbColor.substring(rgbColor.indexOf('(') + 1, rgbColor.indexOf(')')).split(',').map(value => parseInt(value.trim()));
+
+    const decreaseOne = Math.round(numberValuesArray[0]/10)
+    const decreaseTwo = Math.round(numberValuesArray[1]/10)
+    const decreaseThree = Math.round(numberValuesArray[2]/10)
+
+    return `rgb(${numberValuesArray[0] - decreaseOne}, ${numberValuesArray[1] - decreaseTwo}, ${numberValuesArray[2] - decreaseThree})`
+}
+
 function paintBackground(e) {
-    e.target.style.backgroundColor = 'black';
+    e.target.style.bgroundColor = 'black';
+    // if (bgroundColor) {
+    //     console.log('this words')
+    //     bgroundColor = darken(bgroundColor)
+    // }
 }
 
 function eraseBackground() {
@@ -34,7 +51,7 @@ function eraseBackground() {
 
 
 
-
+// event listener which call all the above functions
 document.querySelectorAll('.size-selection').forEach(button => {
     button.addEventListener('click', drawGrid)
 })
